@@ -33,12 +33,23 @@
     <ProgressBar
         android:id="@+id/progressBar"
         android:minHeight="20dip"
+        android:max="100"
         android:maxHeight="20dip"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_marginTop="57dp" />
+
+    <TextView
+        android:id="@+id/textProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/progressBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Progreso..." />
 
 </RelativeLayout>

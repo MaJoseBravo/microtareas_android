@@ -1,27 +1,38 @@
 package com.example.dptoredes.threads;
 
-import android.content.Context;
 import android.os.AsyncTask;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.math.BigInteger;
 
-public class Thread1 extends AsyncTask<Integer, Integer, BigInteger> {
-    TextView textoresultado;
-    ProgressBar progressBar;
+/**
+ * Created by Majito on 14/08/2017.
+ */
 
-    public Thread1(TextView textoresultado){
+public class Thread1 extends AsyncTask<Integer, Integer, BigInteger> {
+    TextView textoresultado, Progreso;
+    ProgressBar progress;
+
+
+    public Thread1(TextView textoresultado, ProgressBar progressBar, TextView textProgress){
         this.textoresultado = textoresultado;
+        this.progress = progressBar;
+        this.Progreso = textProgress;
     }
 
     @Override
     protected BigInteger doInBackground(Integer... params) {
         int n = params[0];
+        int myProgress = 0;
         BigInteger prime = new BigInteger("2");
         for(int i=0;i<n;i++){
+            publishProgress(myProgress+=10);
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             prime=prime.nextProbablePrime();
         }
         return prime;
@@ -30,13 +41,16 @@ public class Thread1 extends AsyncTask<Integer, Integer, BigInteger> {
     protected void onProgressUpdate(Integer... values) {
         // Executes whenever publishProgress is called from doInBackground
         // Used to update the progress indicator
-        //progressBar.setProgress(values[0]);
-        //textoresultado.setText(values[0].toString());
+        super.onProgressUpdate(values);
+        if (values[0] == 100){
+            Progreso.setText("Listo!");
+        } else {
+            Progreso.setText("Paso "+ values[0]/10);
+        }
+        progress.setProgress(values[0]);
     }
 
-
     protected void onPostExecute(BigInteger result) {
-        //progressBar.setVisibility(View.INVISIBLE);
         textoresultado.setText(result.toString());
     }
 

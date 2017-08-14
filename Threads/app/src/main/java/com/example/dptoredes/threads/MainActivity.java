@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -14,17 +15,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final TextView text = (TextView) findViewById(R.id.textView1);
+        final TextView textProgress = (TextView) findViewById(R.id.textProgress);
         Button start = (Button) findViewById(R.id.button1);
-        //final ProgressBar progress = (ProgressBar) findViewById(R.id.progressBar);
-        //progress.setMax(10);
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //progress.setVisibility(View.VISIBLE);
-                //progress.setProgress(0);
-                new Thread1(text).execute(10);
+                new Thread1(text,progressBar,textProgress).execute(10);
             }
         });
     }
 }
+
